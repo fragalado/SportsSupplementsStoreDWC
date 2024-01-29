@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sportssupplements-42651": {
+      "hosting": {
+        "SportsSupplementsStoreDWC": [
+          "sportssupplements-42651"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sportssupplements-42651"
+  }
+}
