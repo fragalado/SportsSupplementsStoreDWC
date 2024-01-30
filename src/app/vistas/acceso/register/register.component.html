@@ -1,6 +1,6 @@
-<div class="body" [formGroup]="formRegistro" (submit)="registrarUsuario()">
+<div class="body">
     <div class="wrapper">
-        <form method="post" asp-controller="AccesoControlador" asp-action="RegistrarUsuario">
+        <form method="post" [formGroup]="formRegistro" (submit)="registrarUsuario()">
             <h1>Registro sesión</h1>
             <div class="input-box">
                 <input type="email" placeholder="Email" formControlName="email">

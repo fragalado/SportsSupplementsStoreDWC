@@ -1,17 +1,16 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
+  // Inyectamos el servicio para usar sus métodos de autentificacion
   const authService = inject(AuthService);
-  var ok: boolean = true;
-  authService.getAuthToken().subscribe(res => ok = res);
-  console.log(ok);
-  if(ok){
-    console.log("Es true");
-    return true;
-  } else {
-    console.log("Es false");
-    return false;
-  }
+
+  // Inyectamos Router para poder navegar por las URL
+  const router = inject(Router);
+
+  // Si el usuario esta registrado devuelve true y si no esta registrado se redirige a /login
+  authService.isLoggedIn || router.navigateByUrl('/login');
+
+  return true;
 };
