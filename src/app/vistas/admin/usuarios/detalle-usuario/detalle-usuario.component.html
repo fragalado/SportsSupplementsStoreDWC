@@ -1,1 +1,40 @@
-<p>detalle-usuario works!</p>
+<div class="row" style="margin-top: 100px; margin-bottom: 30px;">
+    <div class="col">
+        <h1 style="text-align: center;">Editar Usuario</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="contenedor" *ngIf="usuario">
+            <div class="inputs-form">
+                <form method="post" [formGroup]="formEditarUsuario" (submit)="editaUsuario()">
+                    <div class="mb-3">
+                        <label for="emailForm" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailForm" formControlName="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreForm" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombreForm" formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tlfForm" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="tlfForm" formControlName="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="psswdForm" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="psswdForm" formControlName="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="rolForm" class="form-label">Rol</label>
+                        <select id="rolForm" class="form-select"formControlName="acceso">
+                          <option value="2">Admin</option>
+                          <option value="1">Usuario</option>
+                        </select>
+                      </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!formEditarUsuario.valid">Submit</button>
+                    <button class="btn btn-danger" routerLink="/admin/usuarios" style="float: right;">Volver</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

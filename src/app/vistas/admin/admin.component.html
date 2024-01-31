@@ -1,1 +1,44 @@
-<p>admin works!</p>
+<header>
+    <nav class="navbar navbar-expand-lg"
+         style="background: linear-gradient(90deg, rgba(141,148,241,1) 0%, rgba(157,141,241,1) 49%, rgba(181,141,241,1) 100%);;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white nombreTiendaSuplementos">Tienda de Suplementos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-top: 5px;">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" routerLink="/home/home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Nutrición
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Proteínas</a></li>
+                            <li><a class="dropdown-item" href="#">Creatina</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Ver Todo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page">Cerrar sesión</a>
+                    </li>
+                    <li class="nav-item perfilLink">
+                        <a href="#" class="nav-link text-white">Perfil</a>
+                    </li>
+                </ul>
+                <a href="#" class="iconoPerfil"><i class="bi bi-person-circle" style="font-size: 25px;"></i></a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

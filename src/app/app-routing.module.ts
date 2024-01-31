@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full"},
   { path: "login", component: LoginComponent, canActivate: [loginGuard]},
   { path: "register", component: RegisterComponent, canActivate: [loginGuard]},
-  { path: 'admin', loadChildren: () => import('./vistas/admin/admin.module').then(m => m.AdminModule), canActivate: [authGuard, adminGuard], canMatch: [authGuard, adminGuard] },
-  { path: 'home',  loadChildren: () => import('./vistas/home/home.module').then(m => m.HomeModule), canActivate: [authGuard], canMatch: [authGuard] },
+  { path: 'admin', loadChildren: () => import('./vistas/admin/admin.module').then(m => m.AdminModule),  }, // canActivate: [authGuard, adminGuard], canMatch: [authGuard, adminGuard]
+  { path: 'home',  loadChildren: () => import('./vistas/home/home.module').then(m => m.HomeModule),  }, // canActivate: [authGuard], canMatch: [authGuard]
   { path: '**', component: NotFoundComponent}
 ];
 

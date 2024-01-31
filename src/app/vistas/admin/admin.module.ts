@@ -7,6 +7,7 @@ import { ListaUsuariosComponent } from './usuarios/lista-usuarios/lista-usuarios
 import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usuario.component';
 import { ListaSuplementosComponent } from './suplementos/lista-suplementos/lista-suplementos.component';
 import { DetalleSuplementoComponent } from './suplementos/detalle-suplemento/detalle-suplemento.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DetalleSuplementoComponent } from './suplementos/detalle-suplemento/det
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

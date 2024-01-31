@@ -1,1 +1,37 @@
-<p>detalle-suplemento works!</p>
+<div class="row" style="margin-top: 100px; margin-bottom: 30px;">
+    <div class="col">
+        <h1 style="text-align: center;">Editar Usuario</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="contenedor" *ngIf="suplemento">
+            <div class="inputs-form">
+                <form method="post" [formGroup]="formEditarSuplemento" (submit)="editaSuplemento()">
+                    <div class="mb-3">
+                        <label for="nombreForm" class="form-label">Nombre</label>
+                        <input type="email" class="form-control" id="nombreForm" formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descForm" class="form-label">Descripcion</label>
+                        <textarea class="form-control" id="descForm" formControlName="descripcion" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precioForm" class="form-label">Precio</label>
+                        <input type="text" class="form-control" id="precioForm" formControlName="precio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="marcaForm" class="form-label">Marca</label>
+                        <input type="text" class="form-control" id="marcaForm" formControlName="marca">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoForm" class="form-label">Tipo</label>
+                        <input type="text" class="form-control" id="tipoForm" formControlName="tipo">
+                      </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!formEditarSuplemento.valid">Submit</button>
+                    <button class="btn btn-danger" routerLink="/admin/suplementos" style="float: right;">Volver</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,38 @@
-<p>lista-suplementos works!</p>
+<div class="row tablaAdmin">
+    <div class="col">
+        <div style="margin-bottom: 5px;">
+            <a class="btn btn-outline-secondary" routerLink="/admin/usuarios" role="button">Usuarios</a>
+            <a class="btn btn-outline-secondary" routerLink="/admin/suplementos" role="button">Productos</a>
+        </div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!suplementos">
+                    <td colspan="7" style="text-align: center;">No existe ningún suplemento.</td>
+                </tr>
+                <tr *ngFor="let suplemento of suplementos; let i = index">
+                    <td scope="row">{{i + 1}}</td>
+                    <td>{{suplemento.nombre}}</td>
+                    <td>{{suplemento.descripcion}}</td>
+                    <td>{{suplemento.precio}}$</td>
+                    <td>{{suplemento.tipo}}</td>
+                    <td>{{suplemento.marca}}</td>
+                    <td>
+                        <i class="bi bi-pencil" style="color: green; padding-left: 15px;" routerLink="/admin/detalle-suplemento/{{suplemento.id}}"></i>
+                        <i class="bi bi-trash" style="color: red; padding-left: 35px;" (click)="eliminarSuplemento(suplemento)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

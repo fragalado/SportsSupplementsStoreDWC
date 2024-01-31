@@ -1,0 +1,35 @@
+.nombreTiendaSuplementos {
+    margin-left: 10px;
+}
+
+.iconoPerfil{
+    margin-right: 10px;
+    font-size: 18px;
+    /* border: 1px solid white; */
+    /* padding: 5px 10px; */
+    border-radius: 20px;
+}
+
+.iconoPerfil i{
+    color: white;
+}
+
+.tablaAdmin {
+    margin-top: 150px;
+}
+
+.tablaAdmin table {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 1);
+}
+
+@media (max-width: 991px){
+    .iconoPerfil{
+        display: none;
+    }
+}
+
+@media (min-width: 992px){
+    .perfilLink {
+        display: none;
+    }
+}
