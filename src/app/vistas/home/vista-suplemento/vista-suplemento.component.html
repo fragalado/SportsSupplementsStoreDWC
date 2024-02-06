@@ -1,0 +1,13 @@
+<div class="row" style="margin-top: 25px;">
+    <div class="col">
+        <!-- Container -->
+        <div class="container">
+            <div *ngIf="suplemento" class="divContenedor">
+                <img src="{{suplemento.url}}" class="img-fluid imagenSuplemento" alt="{{suplemento.nombre}}">
+                <h2 class="nombreSuplemento">{{suplemento.nombre}}</h2>
+                <p class="descSuplemento">{{suplemento.descripcion}}</p>
+                <a class="btn btn-primary botonVolver" routerLink="/home/home">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

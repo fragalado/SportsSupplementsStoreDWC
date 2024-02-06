@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngIf="!usuarios">
+                <tr *ngIf="usuarios!.length < 1">
                     <td colspan="5" style="text-align: center;">No existe ningún usuario.</td>
                 </tr>
                 <tr *ngFor="let usuario of usuarios; let i = index">

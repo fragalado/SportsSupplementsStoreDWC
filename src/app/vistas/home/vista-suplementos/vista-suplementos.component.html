@@ -1,0 +1,38 @@
+<!-- Suplementos -->
+<div class="row" style="margin-top: 80px">
+    <div class="col-12">
+        <div class="row">
+            <!-- Dropdown Filtrar suplemento -->
+            <div class="dropdown" style="margin-bottom: 15px">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filtrar por
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="filtraPor(1)">Proteína</a></li>
+                    <li><a class="dropdown-item" (click)="filtraPor(2)">Creatina</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" (click)="filtraPor(3)">Ver todo</a></li>
+                </ul>
+            </div>
+            <!-- Fin Dropdown Filtrar suplemento -->
+
+            <!-- Cards Suplementos -->
+            <div *ngFor="let suplemento of suplementos" class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="card">
+                    <img src="{{suplemento.url}}" class="card-img-top" alt="{{suplemento.nombre}}" style="max-height: 200px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{suplemento.nombre}}</h5>
+                        <p class="card-text">
+                            {{suplemento.descripcion.substring(0, 50)}}...
+                        </p>
+                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Cards Suplementos -->
+        </div>
+    </div>
+</div>
+<!-- Fin Suplementos -->

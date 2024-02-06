@@ -4,5 +4,6 @@ export interface Suplemento {
     descripcion: string,
     precio: number,
     tipo: string,
-    marca: string
+    marca: string,
+    url: string
 }

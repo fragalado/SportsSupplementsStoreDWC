@@ -3,6 +3,7 @@
         <div style="margin-bottom: 5px;">
             <a class="btn btn-outline-secondary" routerLink="/admin/usuarios" role="button">Usuarios</a>
             <a class="btn btn-outline-secondary" routerLink="/admin/suplementos" role="button">Productos</a>
+            <a style="float: right;" class="btn btn-outline-secondary" routerLink="/admin/agregar-suplemento" role="button">Agregar producto</a>
         </div>
         <table class="table table-dark table-hover">
             <thead>
@@ -17,11 +18,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngIf="!suplementos">
+                <tr *ngIf="suplementos!.length < 1">
                     <td colspan="7" style="text-align: center;">No existe ningún suplemento.</td>
                 </tr>
-                <tr *ngFor="let suplemento of suplementos; let i = index">
-                    <td scope="row">{{i + 1}}</td>
+                <tr *ngFor="let suplemento of suplementos">
+                    <td><img style="max-width: 80px; max-height: 80px;" src="{{suplemento.url}}" alt="{{suplemento.nombre}}"></td>
                     <td>{{suplemento.nombre}}</td>
                     <td>{{suplemento.descripcion}}</td>
                     <td>{{suplemento.precio}}$</td>

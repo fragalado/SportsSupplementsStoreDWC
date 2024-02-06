@@ -12,6 +12,8 @@ const routes: Routes = [
     { path: 'detalle-usuario/:id', component: DetalleUsuarioComponent},
     { path: 'suplementos', component: ListaSuplementosComponent},
     { path: 'detalle-suplemento/:id', component: DetalleSuplementoComponent},
+    { path: 'agregar-suplemento', component: DetalleSuplementoComponent},
+    { path: '**', redirectTo: 'usuarios', pathMatch: 'full'}
   ]}
 ];
 

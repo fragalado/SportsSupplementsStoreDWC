@@ -10,14 +10,19 @@ import Swal from 'sweetalert2';
 })
 export class ListaUsuariosComponent {
 
+  // Lista donde guardaremos los usuarios
   usuarios?: Usuario[];
+
+  // Constructor
   constructor(private dbs: DatabaseService) {
     
   }
 
+  // Método que se ejecuta al iniciar el componente
   ngOnInit() {
     // Obtenemos todos los usuarios de la base de datos
     this.dbs.getCollection("usuarios").subscribe(res => {
+      // Guardamos los usuarios en la lista usuarios
       this.usuarios = res;
 
       // Ordenamos la lista usuarios por el id_acceso
@@ -25,7 +30,12 @@ export class ListaUsuariosComponent {
     });
   }
 
+  /**
+   * Método para eliminar un usuario de la base de datos
+   * @param usuario Objeto usuario a eliminar
+   */
   eliminarUsuario(usuario: Usuario) {
+    // Comprobamos si el usuario es un Administrador
     if (usuario.id_acceso == 2) {
       Swal.fire({
         title: "Error",
@@ -33,6 +43,8 @@ export class ListaUsuariosComponent {
         icon: "error"
       });
     } else {
+      // Si el usuario no es Administrador
+      // Borramos el usuario de la base de datos
       this.dbs.deleteDocument(usuario.id!, 'usuarios')
         .then(() => Swal.fire({
           title: "Borrado",

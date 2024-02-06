@@ -7,7 +7,7 @@
     <div class="col">
         <div class="contenedor" *ngIf="suplemento">
             <div class="inputs-form">
-                <form method="post" [formGroup]="formEditarSuplemento" (submit)="editaSuplemento()">
+                <form method="post" [formGroup]="formEditarSuplemento" (submit)="enviaDatos()">
                     <div class="mb-3">
                         <label for="nombreForm" class="form-label">Nombre</label>
                         <input type="email" class="form-control" id="nombreForm" formControlName="nombre">
@@ -27,7 +27,11 @@
                     <div class="mb-3">
                         <label for="tipoForm" class="form-label">Tipo</label>
                         <input type="text" class="form-control" id="tipoForm" formControlName="tipo">
-                      </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urlForm" class="form-label">URL Foto</label>
+                        <input type="text" class="form-control" id="urlForm" formControlName="url">
+                    </div>
                     <button type="submit" class="btn btn-primary" [disabled]="!formEditarSuplemento.valid">Submit</button>
                     <button class="btn btn-danger" routerLink="/admin/suplementos" style="float: right;">Volver</button>
                 </form>
