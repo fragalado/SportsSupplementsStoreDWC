@@ -1,7 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from '@angular/router';
+import { DatabaseService } from './database.service';
+import { Usuario } from '../modelos/usuario';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,8 @@ export class AuthService {
   constructor(
     private firebaseAuthenticationService: AngularFireAuth, 
     private router: Router, 
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private dbs: DatabaseService
   ) {
     // Guardamos el usuario en el localStorage al hacer log-in y lo ponemos a null cuando hacemos log-out
     firebaseAuthenticationService.authState.subscribe((user) => {
@@ -33,10 +37,27 @@ export class AuthService {
   logInWithEmailAndPassword(email: string, password: string){
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
+                  // Obtenemos el usuario de la base de datos
+                  this.dbs.queryCollection('usuarios', 'email', email).subscribe(res => {
+                    const usuario = res[0];
+
+                    if(usuario.id_acceso == 2)
+                    {
+                      // Creamos un nuevo valor en localStorage
+                      localStorage.setItem('userID', '2');
+                    }
+                  })
+
                   this.userData = userCredential.user;
                   this.observeUserState();
                 })
-                .catch((error) => alert(error.message));
+                .catch(() => {
+                  Swal.fire({
+                    title: "Oops..",
+                    text: "El email y/o contraseña no son correctos!!",
+                    icon: "error"
+                  });
+                });
   }
 
   /**
@@ -45,13 +66,23 @@ export class AuthService {
    * @param password Contraseña introducida por el usuario
    * @returns Devuelve una promesa
    */
-  signUpWithEmailAndPassword(email: string, password: string){
-    return this.firebaseAuthenticationService.createUserWithEmailAndPassword(email, password)
+  signUpWithEmailAndPassword(objeto: Usuario){
+    return this.firebaseAuthenticationService.createUserWithEmailAndPassword(objeto.email, objeto.password)
                 .then((userCredential) => {
+                  // Guardamos el usuario en la base de datos
+                  this.dbs.newDocument(objeto, 'usuarios');
+                  
+                  // Guardamos el usuario en userData
                   this.userData = userCredential.user;
                   this.observeUserState();
                 })
-                .catch((error) => alert(error.message));
+                .catch(() => {
+                  Swal.fire({
+                    title: "Oops..",
+                    text: "El Email introducido ya existe!!",
+                    icon: "error"
+                  });
+                });
   }
 
   /**
@@ -72,6 +103,17 @@ export class AuthService {
   }
 
   /**
+   * Método que devuelve true si el usuario es admin o false si no
+   */
+  get isAdmin(): boolean {
+    const id_acceso = localStorage.getItem('userID');
+    if(id_acceso == null)
+      return false;
+    else
+      return true;
+  }
+
+  /**
    * Método que hace el logout
    * @returns Devuelve una Promesa
    */
@@ -79,33 +121,8 @@ export class AuthService {
     return this.firebaseAuthenticationService.signOut()
                 .then(() => {
                   localStorage.removeItem('user');
+                  localStorage.removeItem('userID');
                   this.router.navigateByUrl('/login');
                 });
-  }
-
-  /**
-   * Método que devuelve true si el usuario ha iniciado sesión o false si no ha iniciado sesión.
-   * @returns True si ha iniciaco sesión o false si no.
-   */
-  getAuthToken(): Observable<boolean> {
-    if(localStorage.getItem('tokenUsuario')){
-      console.log("Hay token de usuario");
-      return of(true);
-    } else{
-      console.log("No hay token de usuario");
-      return of(false);
-    }
-  }
-
-  /**
-   * Método que devuelve true si el usuario es admin o false si no es admin.
-   * @returns Devuelve true si el usuario es admin o false si no es admin.
-   */
-  getAdminToken(): Observable<boolean>{
-    if(localStorage.getItem('tokenUsuario')){
-      return of(true);
-    } else{
-      return of(false);
-    }
   }
 }

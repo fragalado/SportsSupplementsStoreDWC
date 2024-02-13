@@ -1,20 +1,23 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 
 export const loginGuard: CanActivateFn = (route, state) => {
+  // Inyectamos el servicio para usar sus métodos de autentificacion
   const authService = inject(AuthService);
-  var ok: boolean = true;
-  // GetAuthToken devuelve true si el usuario ha iniciaco sesión o false si no ha iniciado sesión.
-  authService.getAuthToken().subscribe(res => ok = res);
+
+  // Inyectamos Router para poder navegar por las URL
+  const router = inject(Router);
+
+  // Si el usuario esta registrado devuelve true y si no esta registrado se redirige a /home
+  const ok = authService.isLoggedIn;
 
   if(ok){
-    // Si ok es true es porque el usuario ya ha iniciado sesión,
-    // luego devolvemos false para no mostrar la vista del login/register
-    return false;
-  } else {
-    // Si ok es false es porque el usuario no ha iniciado sesión,
-    // luego devolvemos true para mostrar la vista del login o register
-    return true;
+    // Esta registrado luego redirigimos a home
+    router.navigateByUrl('/home');
+  } else{
+    return true; // Devolvemos true si el usuario no ha iniciado sesión
   }
+
+  return false; // Devolvemos false si el usuario ha iniciado sesión
 };

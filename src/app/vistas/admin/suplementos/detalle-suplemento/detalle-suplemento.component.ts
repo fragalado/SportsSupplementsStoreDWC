@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class DetalleSuplementoComponent {
 
-  id?: string;
+  id?: string;  
   suplemento: Suplemento = {descripcion:'', marca: '', nombre: '', precio: 0, tipo: '', url: ''};
   formEditarSuplemento = this.formBuilder.group({
     descripcion: [this.suplemento.descripcion, Validators.required],

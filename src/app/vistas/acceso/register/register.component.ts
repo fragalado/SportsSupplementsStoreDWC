@@ -13,19 +13,19 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
 
-  usuario: Usuario = {email: '', id_acceso: 1, nombre: '', password: '', telefono: ''};
+  usuario: Usuario = { email: '', id_acceso: 1, nombre: '', password: '', telefono: '' };
   formRegistro = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     nombre: ['', Validators.required],
     telefono: ['', Validators.required],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private dbs: DatabaseService, 
+    private formBuilder: FormBuilder,
+    private dbs: DatabaseService,
     private authService: AuthService
-  ){}
+  ) { }
 
   registrarUsuario() {
     // Actualizamos el usuario con los datos del formulario
@@ -34,20 +34,7 @@ export class RegisterComponent {
     this.usuario.telefono = this.formRegistro.controls['telefono'].value!;
     this.usuario.password = this.formRegistro.controls['password'].value!;
 
-    this.authService.signUpWithEmailAndPassword(this.usuario.email, this.usuario.password)
-      // .then(() => {
-      //   // Guardamos el usuario en la base de datos
-      //   this.dbs.newDocument(this.usuario, 'usuarios')
-      //     .then(() => Swal.fire({
-      //       title: "Creado",
-      //       text: "Creado con éxito!!",
-      //       icon: "success"
-      //     }))
-      //     .catch(() => Swal.fire({
-      //       title: "Oops..",
-      //       text: "Se ha producido un error. Vuelva a intentarlo más tarde.",
-      //       icon: "error"
-      //     }));
-      // }).catch(() => console.log("El usuario ya existe"));
+    // Hacemos el registro
+    this.authService.signUpWithEmailAndPassword(this.usuario);
   }
 }
