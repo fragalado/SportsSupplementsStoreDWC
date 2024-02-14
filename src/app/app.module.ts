@@ -13,7 +13,6 @@ import { environment } from 'src/environments/environment.development';
 import { ReactiveFormsModule } from '@angular/forms';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from "@angular/fire/compat";
-import { NavbarComponent } from './vistas/core/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { NavbarComponent } from './vistas/core/navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,
-    NavbarComponent,
   ],
   imports: [
     BrowserModule,

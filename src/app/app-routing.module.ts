@@ -12,8 +12,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [loginGuard]},
   { path: "register", component: RegisterComponent, canActivate: [loginGuard]},
   { path: 'admin', loadChildren: () => import('./vistas/admin/admin.module').then(m => m.AdminModule),  canActivate: [authGuard, adminGuard], canMatch: [authGuard, adminGuard]}, // canActivate: [authGuard, adminGuard], canMatch: [authGuard, adminGuard]
-  { path: 'home',  loadChildren: () => import('./vistas/home/home.module').then(m => m.HomeModule),  canActivate: [authGuard], canMatch: [authGuard]}, // canActivate: [authGuard], canMatch: [authGuard]
-  { path: 'perfil', loadChildren: () => import('./vistas/perfil/perfil.module').then(m => m.PerfilModule), canActivate: [authGuard], canMatch: [authGuard]}, 
+  { path: 'SupplementsStore', loadChildren: () => import('./vistas/supplements-store/supplements-store.module').then(m => m.SupplementsStoreModule), canActivate: [authGuard], canMatch: [authGuard] }, 
   { path: '**', component: NotFoundComponent}
 ];
 

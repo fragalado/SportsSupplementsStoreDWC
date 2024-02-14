@@ -3,12 +3,12 @@ import { Suplemento } from 'src/app/modelos/suplemento';
 import { DatabaseService } from 'src/app/servicios/database.service';
 
 @Component({
-  selector: 'app-vista-home',
-  templateUrl: './vista-home.component.html',
-  styleUrls: ['./vista-home.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class VistaHomeComponent {
-  
+export class HomeComponent {
+
   suplementos?: Suplemento[];
 
   constructor(

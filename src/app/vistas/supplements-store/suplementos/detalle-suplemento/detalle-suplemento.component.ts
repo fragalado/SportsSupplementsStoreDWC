@@ -4,11 +4,11 @@ import { Suplemento } from 'src/app/modelos/suplemento';
 import { DatabaseService } from 'src/app/servicios/database.service';
 
 @Component({
-  selector: 'app-vista-suplemento',
-  templateUrl: './vista-suplemento.component.html',
-  styleUrls: ['./vista-suplemento.component.css']
+  selector: 'app-detalle-suplemento',
+  templateUrl: './detalle-suplemento.component.html',
+  styleUrls: ['./detalle-suplemento.component.css']
 })
-export class VistaSuplementoComponent {
+export class DetalleSuplementoComponent {
 
   suplemento?: Suplemento;
   constructor(
@@ -27,5 +27,4 @@ export class VistaSuplementoComponent {
       this.router.navigateByUrl('/home/home');
     }
   }
-
 }

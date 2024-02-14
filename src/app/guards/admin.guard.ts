@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   // Si devuelve false redirigiremos a home
-  authService.isAdmin || router.navigateByUrl('/home');
+  authService.isAdmin || router.navigateByUrl('/SupplementsStore/home');
 
   return true;
 };

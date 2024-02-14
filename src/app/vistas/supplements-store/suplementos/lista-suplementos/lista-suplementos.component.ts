@@ -4,11 +4,11 @@ import { Suplemento } from 'src/app/modelos/suplemento';
 import { DatabaseService } from 'src/app/servicios/database.service';
 
 @Component({
-  selector: 'app-vista-suplementos',
-  templateUrl: './vista-suplementos.component.html',
-  styleUrls: ['./vista-suplementos.component.css']
+  selector: 'app-lista-suplementos',
+  templateUrl: './lista-suplementos.component.html',
+  styleUrls: ['./lista-suplementos.component.css']
 })
-export class VistaSuplementosComponent {
+export class ListaSuplementosComponent {
 
   todosSuplementos?: Suplemento[];
   suplementos?: Suplemento[];
@@ -40,5 +40,4 @@ export class VistaSuplementosComponent {
       this.suplementos = this.todosSuplementos;
 
   }
-
 }

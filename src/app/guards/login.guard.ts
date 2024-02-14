@@ -14,7 +14,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
 
   if(ok){
     // Esta registrado luego redirigimos a home
-    router.navigateByUrl('/home');
+    router.navigateByUrl('/SupplementsStore/home');
   } else{
     return true; // Devolvemos true si el usuario no ha iniciado sesión
   }

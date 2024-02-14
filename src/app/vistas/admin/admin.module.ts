@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListaUsuariosComponent,
     DetalleUsuarioComponent,
     ListaSuplementosComponent,
-    DetalleSuplementoComponent
+    DetalleSuplementoComponent,
   ],
   imports: [
     CommonModule,
