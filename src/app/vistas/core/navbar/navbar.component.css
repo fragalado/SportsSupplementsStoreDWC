@@ -5,9 +5,6 @@
 .iconoPerfil{
     margin-right: 10px;
     font-size: 18px;
-    /* border: 1px solid white; */
-    /* padding: 5px 10px; */
-    /* border-radius: 20px; */
 }
 
 .iconoPerfil i{
@@ -32,6 +29,10 @@
 }
 
 @media (max-width: 991px){
+    .nombreTiendaSuplementos {
+        display: none;
+    }
+
     .iconoPerfil{
         display: none;
     }

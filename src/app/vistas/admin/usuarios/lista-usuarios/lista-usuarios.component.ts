@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class ListaUsuariosComponent {
 
   // Lista donde guardaremos los usuarios
-  usuarios?: Usuario[];
+  usuarios: Usuario[] = [];
 
   // Constructor
   constructor(private dbs: DatabaseService) {

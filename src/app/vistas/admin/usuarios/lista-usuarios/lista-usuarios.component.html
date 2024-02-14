@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngIf="usuarios!.length < 1">
+                <tr *ngIf="usuarios.length < 1">
                     <td colspan="5" style="text-align: center;">No existe ningún usuario.</td>
                 </tr>
                 <tr *ngFor="let usuario of usuarios; let i = index">
@@ -25,8 +25,8 @@
                     <td *ngIf="usuario.id_acceso == 1">Usuario</td>
                     <td *ngIf="usuario.id_acceso == 2">Admin</td>
                     <td>
-                        <i class="bi bi-pencil" style="color: green; padding-left: 15px;" routerLink="/admin/detalle-usuario/{{usuario.id}}"></i>
-                        <i class="bi bi-trash" style="color: red; padding-left: 35px;" (click)="eliminarUsuario(usuario)"></i>
+                        <i class="bi bi-pencil" style="color: green; margin-left: 15px; cursor: pointer;" routerLink="/admin/detalle-usuario/{{usuario.id}}"></i>
+                        <i class="bi bi-trash" style="color: red; margin-left: 35px; cursor: pointer;" (click)="eliminarUsuario(usuario)"></i>
                     </td>
                 </tr>
             </tbody>

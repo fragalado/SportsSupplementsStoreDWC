@@ -8,6 +8,7 @@ import { ListaSuplementosComponent } from './suplementos/lista-suplementos/lista
 import { DetalleSuplementoComponent } from './suplementos/detalle-suplemento/detalle-suplemento.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HomeComponent } from './home/home.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HomeComponent } from './home/home.component';
     ListaSuplementosComponent,
     DetalleSuplementoComponent,
     PerfilComponent,
-    HomeComponent
+    HomeComponent,
+    CarritoComponent
   ],
   imports: [
     CommonModule,

@@ -12,12 +12,16 @@ import Swal from 'sweetalert2';
 export class AuthService {
 
   userData: any;
+  listaUsuarios?: Usuario[];
   constructor(
     private firebaseAuthenticationService: AngularFireAuth, 
     private router: Router, 
     private ngZone: NgZone,
     private dbs: DatabaseService
   ) {
+    // Obtenemos una lista con todos los usuarios de la base de datos
+    dbs.getCollection('usuarios').subscribe(res => this.listaUsuarios = res);
+
     // Guardamos el usuario en el localStorage al hacer log-in y lo ponemos a null cuando hacemos log-out
     firebaseAuthenticationService.authState.subscribe((user) => {
       if(user){
@@ -37,16 +41,14 @@ export class AuthService {
   logInWithEmailAndPassword(email: string, password: string){
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                  // Obtenemos el usuario de la base de datos
-                  this.dbs.queryCollection('usuarios', 'email', email).subscribe(res => {
-                    const usuario = res[0];
+                  // Buscamos el usuario en la lista de usuarios
+                  const usuario = this.listaUsuarios?.find(usuario => usuario.email == email);
+                  if(usuario?.id_acceso == 2){
+                    // Creamos un nuevo valor en localStorage
+                    localStorage.setItem('userID', '2');
+                  }
 
-                    if(usuario.id_acceso == 2)
-                    {
-                      // Creamos un nuevo valor en localStorage
-                      localStorage.setItem('userID', '2');
-                    }
-                  })
+                  localStorage.setItem('idUsuario', usuario?.id!);
 
                   this.userData = userCredential.user;
                   this.observeUserState();

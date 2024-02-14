@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ListaSuplementosComponent {
 
-  suplementos?: Suplemento[];
+  suplementos: Suplemento[] = [];
   constructor(private dbs: DatabaseService) {
 
   }

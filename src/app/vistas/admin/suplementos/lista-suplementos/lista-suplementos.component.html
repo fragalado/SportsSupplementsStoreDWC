@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngIf="!suplementos">
+                <tr *ngIf="suplementos.length < 1">
                     <td colspan="7" style="text-align: center;">No existe ningún suplemento.</td>
                 </tr>
                 <tr *ngFor="let suplemento of suplementos">
@@ -29,8 +29,8 @@
                     <td>{{suplemento.tipo}}</td>
                     <td>{{suplemento.marca}}</td>
                     <td>
-                        <i class="bi bi-pencil" style="color: green; padding-left: 15px;" routerLink="/admin/detalle-suplemento/{{suplemento.id}}"></i>
-                        <i class="bi bi-trash" style="color: red; padding-left: 35px;" (click)="eliminarSuplemento(suplemento)"></i>
+                        <i class="bi bi-pencil" style="color: green; margin-left: 15px; cursor: pointer;" routerLink="/admin/detalle-suplemento/{{suplemento.id}}"></i>
+                        <i class="bi bi-trash" style="color: red; margin-left: 35px; cursor: pointer;" (click)="eliminarSuplemento(suplemento)"></i>
                     </td>
                 </tr>
             </tbody>

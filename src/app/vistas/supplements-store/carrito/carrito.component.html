@@ -1,0 +1,41 @@
+<div class="row tablaAdmin">
+    <div class="col">
+        <!-- Tabla -->
+        <table class="table table-dark table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Suplemento</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio unidad</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="carritos.length < 1">
+                    <td colspan="5" style="text-align: center">
+                        No existe ningún suplemento añadido al carrito.
+                    </td>
+                </tr>
+                <tr *ngFor="let carrito of carritoSuplemento">
+                    <th scope="row">
+                        <img src="{{carrito.suplemento.url}}" class="img-fluid" style="max-width: 80px; max-height: 80px" alt="{{carrito.suplemento.nombre}}" />
+                    </th>
+                    <td>{{carrito.suplemento.nombre}}</td>
+                    <td>{{carrito.carrito.cantidad}}</td>
+                    <td>{{carrito.suplemento.precio}}</td>
+                    <td>
+                        <i class="bi bi-trash" style="color: red; cursor: pointer;" (click)="eliminarCarrito(carrito.carrito)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Fin Tabla -->
+
+        <!-- Boton comprar -->
+        <button *ngIf="carritos.length > 0" class="btn btn-primary" style="float: right">
+            Comprar
+        </button>
+        <!-- Fin Boton comprar -->
+    </div>
+</div>

@@ -22,7 +22,11 @@
                     <li *ngIf="esAdmin == true" class="nav-item">
                         <a routerLink="/admin/usuarios" class="nav-link text-white">Administración</a>
                     </li>
+                    <li class="nav-item perfilLink">
+                        <a routerLink="/SupplementsStore/carrito" class="nav-link text-white">Carrito</a>
+                    </li>
                 </ul>
+                <a routerLink="/SupplementsStore/carrito" class="carrito"><i class="bi bi-cart"></i></a>
                 <a routerLink="/SupplementsStore/perfil" class="iconoPerfil"><i class="bi bi-person-circle" style="font-size: 25px;"></i></a>
             </div>
         </div>
