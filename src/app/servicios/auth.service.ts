@@ -124,6 +124,7 @@ export class AuthService {
                 .then(() => {
                   localStorage.removeItem('user');
                   localStorage.removeItem('userID');
+                  localStorage.removeItem('idUsuario');
                   this.router.navigateByUrl('/login');
                 });
   }
