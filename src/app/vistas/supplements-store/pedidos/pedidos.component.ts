@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component } from '@angular/core';
 import { Pedido } from 'src/app/modelos/pedido';
 import { DatabaseService } from 'src/app/servicios/database.service';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-pedidos',
@@ -36,21 +37,21 @@ export class PedidosComponent {
     // Obtenemos los pedidos del usuario
     this.dbs.queryCollection('pedidos', 'idUsuario', localStorage.getItem("idUsuario")!).subscribe(res => this.dataSource = res);
   }
-}
 
-const prueba: Pedido[] = [
-  {
-    fecha: "20/02/2024",
-    idUsuario: "1",
-    precioTotal: 10,
-    productos: "EvoWhey Protein, Creatina",
-    id: "1"
-  },
-  {
-    fecha: "22/02/2024",
-    idUsuario: "1",
-    precioTotal: 12,
-    productos: "EvoWhey Protein, Creatina",
-    id: "1"
+  openPDF(pedido: Pedido) {
+    const doc = new jsPDF();
+
+    doc.text("Fecha: " +pedido.fecha, 10, 10);
+    doc.text("Productos: " + pedido.productos, 10, 20);
+    doc.text("Precio total: " + pedido.precioTotal + "€", 10, 30);
+
+    // Obtener los datos del documento como un objeto Blob
+    const blobData = doc.output('blob');
+
+    // Crear una URL de objeto (blob URL)
+    const blobURL = URL.createObjectURL(blobData);
+
+    // Abrir el PDF en una nueva pestaña
+    window.open(blobURL, '_blank');
   }
-]
+}
