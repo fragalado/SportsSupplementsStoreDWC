@@ -25,7 +25,6 @@ export class NavbarComponent {
     const idUsuario = localStorage.getItem("idUsuario")!;
     this.dbs.queryCollection('carritos', 'idUsuario', idUsuario).subscribe(res => {
       this.carritosUsuario = res.filter((x:Carrito) => x.estaComprado == false);
-      console.log(this.carritosUsuario);
     })
   }
 }

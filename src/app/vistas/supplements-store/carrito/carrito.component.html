@@ -33,7 +33,7 @@
         <!-- Fin Tabla -->
 
         <!-- Boton comprar -->
-        <button *ngIf="carritos.length > 0" class="btn btn-primary" style="float: right">
+        <button *ngIf="carritos.length > 0" class="btn btn-primary" style="float: right" (click)="comprarCarrito()">
             Comprar
         </button>
         <!-- Fin Boton comprar -->

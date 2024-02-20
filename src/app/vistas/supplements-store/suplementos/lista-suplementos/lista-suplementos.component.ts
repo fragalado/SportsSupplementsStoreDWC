@@ -46,7 +46,6 @@ export class ListaSuplementosComponent {
   agregarAlCarrito(object: any) {
 
     const idUsuario = localStorage.getItem('idUsuario')!;
-    console.log(idUsuario);
 
     const carrito: Carrito = {
       idUsuario: idUsuario,
@@ -58,7 +57,6 @@ export class ListaSuplementosComponent {
     // Agregamos el carrito a la base de datos
     this.dbs.newDocument(carrito, 'carritos')
       .then(() => {
-        console.log("Ha entrado en agregado exito");
         Swal.fire({
           title: "Agregado",
           text: "Agregado con éxito!!",
@@ -72,12 +70,5 @@ export class ListaSuplementosComponent {
           icon: "error"
         })
       });
-
-    // this.dbs.queryCollection('usuarios', 'email', email).subscribe(res => {
-    //   const usuario = res[0];
-    //   console.log(usuario);
-
-
-    // })
   }
 }

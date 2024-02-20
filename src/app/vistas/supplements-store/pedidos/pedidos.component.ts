@@ -16,8 +16,15 @@ import { DatabaseService } from 'src/app/servicios/database.service';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent {
-  dataSource = prueba;
-  columnsToDisplay = ['fecha', 'productos', 'precioTotal'];
+  pedidos: Pedido[] = [];
+  dataSource = this.pedidos;
+  // Utilizamos un mapeo para personalizar los nombres de las columnas
+  columnDisplayMapping: { [key: string]: keyof Pedido } = {
+    'Fecha': 'fecha',
+    'Productos': 'productos',
+    'Precio Total': 'precioTotal'
+  };
+  columnsToDisplay = Object.keys(this.columnDisplayMapping);
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Pedido | null = null;
 
@@ -27,6 +34,7 @@ export class PedidosComponent {
 
   ngOnInit(){
     // Obtenemos los pedidos del usuario
+    this.dbs.queryCollection('pedidos', 'idUsuario', localStorage.getItem("idUsuario")!).subscribe(res => this.dataSource = res);
   }
 }
 

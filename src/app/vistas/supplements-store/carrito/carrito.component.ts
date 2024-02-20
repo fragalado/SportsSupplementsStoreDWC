@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Carrito, CarritoSuplemento } from 'src/app/modelos/carrito';
+import { Pedido } from 'src/app/modelos/pedido';
 import { Suplemento } from 'src/app/modelos/suplemento';
 import { DatabaseService } from 'src/app/servicios/database.service';
 import Swal from 'sweetalert2';
@@ -88,5 +89,46 @@ export class CarritoComponent {
         });
       }
     });
+  }
+
+  /**
+   * 
+   */
+  comprarCarrito(){
+    // Recorremos el carrito con los suplementos
+    var precioTotal: number = 0;
+    var productos = "";
+    for (let index = 0; index < this.carritoSuplemento.length; index++) {
+      const suplemento = this.carritoSuplemento[index].suplemento;
+      precioTotal += Number(suplemento.precio);
+      productos = productos + "" + suplemento.nombre + ", ";
+
+      const carrito = this.carritoSuplemento[index].carrito;
+      carrito.estaComprado = true;
+      this.dbs.updateDocument(carrito, 'carritos');
+    }
+
+    // Creamos el objeto Pedido
+    // Obtenemos la fecha actual
+    const fechaActual = new Date();
+    const pedido: Pedido = {
+      fecha: fechaActual.getDate() + "/" + (fechaActual.getMonth()+1) + "/" + fechaActual.getFullYear(),
+      idUsuario: localStorage.getItem("idUsuario")!,
+      precioTotal: precioTotal,
+      productos: productos
+    }
+
+    // Hacemos el insert a la base de datos
+    this.dbs.newDocument(pedido, 'pedidos')
+      .then(() => Swal.fire({
+        title: "Comprado",
+        text: "Comprado con éxito!!",
+        icon: "success"
+      }))
+      .catch(() => Swal.fire({
+        title: "Oops..",
+        text: "Se ha producido un error. Vuelva a intentarlo más tarde.",
+        icon: "error"
+      }));
   }
 }
