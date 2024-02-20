@@ -10,6 +10,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { HomeComponent } from './home/home.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { MaterialModule } from '../core/material/material.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PedidosComponent } from './pedidos/pedidos.component';
   ],
   imports: [
     CommonModule,
-    SupplementsStoreRoutingModule
+    SupplementsStoreRoutingModule,
+    MaterialModule
   ]
 })
 export class SupplementsStoreModule { }

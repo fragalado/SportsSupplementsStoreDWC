@@ -6,6 +6,7 @@ import { ListaSuplementosComponent } from './suplementos/lista-suplementos/lista
 import { PerfilComponent } from './perfil/perfil.component';
 import { HomeComponent } from './home/home.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'suplementos', component: ListaSuplementosComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: 'carrito', component: CarritoComponent},
+      { path: 'pedidos', component: PedidosComponent},
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
   },

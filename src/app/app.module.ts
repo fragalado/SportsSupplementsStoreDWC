@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment.development';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from "@angular/fire/compat";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './vistas/core/material/material.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AngularFireModule } from "@angular/fire/compat";
     provideAuth(() => getAuth()),
 
     // error solution NullInjectError
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+      BrowserAnimationsModule,
+      MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
