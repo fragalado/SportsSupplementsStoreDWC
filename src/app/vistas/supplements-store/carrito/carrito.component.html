@@ -23,7 +23,7 @@
                     </th>
                     <td>{{carrito.suplemento.nombre}}</td>
                     <td>{{carrito.carrito.cantidad}}</td>
-                    <td>{{carrito.suplemento.precio}}</td>
+                    <td>{{carrito.suplemento.precio | currency:'EUR'}}</td>
                     <td>
                         <i class="bi bi-trash" style="color: red; cursor: pointer;" (click)="eliminarCarrito(carrito.carrito)"></i>
                     </td>

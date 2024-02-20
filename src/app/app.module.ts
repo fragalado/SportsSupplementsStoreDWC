@@ -10,7 +10,7 @@ import { NotFoundComponent } from './vistas/not-found/not-found.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment.development';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from "@angular/fire/compat";
 
@@ -26,6 +26,7 @@ import { AngularFireModule } from "@angular/fire/compat";
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
