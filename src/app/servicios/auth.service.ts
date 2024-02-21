@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
@@ -22,23 +21,13 @@ export class AuthService {
 
   // Constructor que inyecta los servicios necesarios para la autentificación
   constructor(
-    private firebaseAuthenticationService: AngularFireAuth, 
-    private router: Router, 
+    private firebaseAuthenticationService: AngularFireAuth,
+    private router: Router,
     private ngZone: NgZone,
     private dbs: DatabaseService
   ) {
     // Obtenemos una lista con todos los usuarios de la base de datos
     dbs.getCollection('usuarios').subscribe(res => this.listaUsuarios = res);
-
-    // Guardamos el usuario en el localStorage al hacer log-in y lo ponemos a null cuando hacemos log-out
-    firebaseAuthenticationService.authState.subscribe((user) => {
-      if(user){
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-      } else {
-        localStorage.setItem('user', 'null');
-      }
-    })
   }
 
   /**
@@ -46,30 +35,31 @@ export class AuthService {
    * @param email Email introducido por el usuario
    * @param password Contraseña introducida por el usuario
    */
-  logInWithEmailAndPassword(email: string, password: string){
+  logInWithEmailAndPassword(email: string, password: string) {
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                  // Buscamos el usuario en la lista de usuarios
-                  const usuario = this.listaUsuarios?.find(usuario => usuario.email == email);
-                  if(usuario?.id_acceso == 2){
-                    // Creamos un nuevo valor en localStorage para indicar que el usuario es Admin
-                    localStorage.setItem('userID', '2');
-                  }
+      .then((userCredential) => {
+        // Buscamos el usuario en la lista de usuarios
+        const usuario = this.listaUsuarios?.find(usuario => usuario.email == email);
+        if (usuario?.id_acceso == 2) {
+          // Creamos un nuevo valor en localStorage para indicar que el usuario es Admin
+          localStorage.setItem('userID', '2');
+        }
 
-                  // Guardamos el id del usuario en el localStorage
-                  localStorage.setItem('idUsuario', usuario?.id!);
+        // Guardamos el id del usuario en el localStorage
+        localStorage.setItem('idUsuario', usuario?.id!);
 
-                  // Almacenamos la información del usuario autentificado
-                  this.userData = userCredential.user;
-                  this.observeUserState();
-                })
-                .catch(() => {
-                  Swal.fire({
-                    title: "Oops..",
-                    text: "El email y/o contraseña no son correctos!!",
-                    icon: "error"
-                  });
-                });
+        // Almacenamos la información del usuario autentificado
+        this.userData = userCredential.user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        this.observeUserState();
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Oops..",
+          text: "El email y/o contraseña no son correctos!!",
+          icon: "error"
+        });
+      });
   }
 
   /**
@@ -77,29 +67,36 @@ export class AuthService {
    * @param objeto Objeto Usuario con la información del nuevo usuario
    * @returns Devuelve una promesa
    */
-  signUpWithEmailAndPassword(objeto: Usuario){
+  signUpWithEmailAndPassword(objeto: Usuario) {
     return this.firebaseAuthenticationService.createUserWithEmailAndPassword(objeto.email, objeto.password)
-                .then((userCredential) => {
-                  // Guardamos el usuario en la base de datos
-                  this.dbs.newDocument(objeto, 'usuarios');
-                  
-                  // Almacenamos la información del usuario autentificado
-                  this.userData = userCredential.user;
-                  this.observeUserState();
-                })
-                .catch(() => {
-                  Swal.fire({
-                    title: "Oops..",
-                    text: "El Email introducido ya existe!!",
-                    icon: "error"
-                  });
-                });
+      .then(() => {
+        localStorage.removeItem('user');
+        // Guardamos el usuario en la base de datos
+        this.dbs.newDocument(objeto, 'usuarios');
+
+        // Enviamos a la vista login
+        this.router.navigateByUrl('/login');
+
+        // Mensaje de registro exitoso
+        Swal.fire({
+          title: "Registrado",
+          text: "Se ha registrado con éxito!!",
+          icon: "success"
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Oops..",
+          text: "El Email introducido ya existe!!",
+          icon: "error"
+        });
+      });
   }
 
   /**
    * Método que revisa el estado de la autentificación y si está correcto te redirige al home
    */
-  observeUserState(){
+  observeUserState() {
     this.firebaseAuthenticationService.authState.subscribe((userState) => {
       userState && this.ngZone.run(() => this.router.navigateByUrl('/SupplementsStore/home'))
     })
@@ -125,15 +122,15 @@ export class AuthService {
    * Método que hace el logout
    * @returns Devuelve una Promesa
    */
-  logOut(){
+  logOut() {
     return this.firebaseAuthenticationService.signOut()
-                .then(() => {
-                  // Limpiamos el localStorage
-                  localStorage.removeItem('user');
-                  localStorage.removeItem('userID');
-                  localStorage.removeItem('idUsuario');
-                  // Redirigimos a la pagina de login
-                  this.router.navigateByUrl('/login');
-                });
+      .then(() => {
+        // Limpiamos el localStorage
+        localStorage.removeItem('user');
+        localStorage.removeItem('userID');
+        localStorage.removeItem('idUsuario');
+        // Redirigimos a la pagina de login
+        this.router.navigateByUrl('/login');
+      });
   }
 }
