@@ -12,8 +12,16 @@ import Swal from 'sweetalert2';
 })
 export class DetalleSuplementoComponent {
 
+  // Variable donde guardaremos el titulo de la vista
+  titulo = "Editar suplemento"
+
+  // Variable donde guardaremos el id del suplemento
   id?: string;  
+
+  // Objeto suplemento inicializado
   suplemento: Suplemento = {descripcion:'', marca: '', nombre: '', precio: 0, tipo: '', url: ''};
+
+  // Formulario
   formEditarSuplemento = this.formBuilder.group({
     descripcion: [this.suplemento.descripcion, Validators.required],
     nombre: [this.suplemento.nombre, Validators.required],
@@ -22,6 +30,8 @@ export class DetalleSuplementoComponent {
     tipo: [this.suplemento.tipo, Validators.required],
     url: [this.suplemento.url, Validators.required]
   });
+
+  // Constructor
   constructor(
     private route: ActivatedRoute,
     private dbs: DatabaseService,
@@ -30,10 +40,18 @@ export class DetalleSuplementoComponent {
     
   }
 
+  /**
+   * Método que se ejecuta al iniciar el componente
+   */
   ngOnInit() {
+    // Comprobamos si hay un id en la url
     if (this.route.snapshot.paramMap.get('id') != null) {
+      // Si hay lo guardamos en id
       this.id = this.route.snapshot.paramMap.get('id')!;
+
+      // Obtenemos el suplemento por el id
       this.dbs.getDocumentById(this.id, 'suplementos').subscribe(res => {
+        // Guardamos el valor en la variable suplemento
         this.suplemento = res;
 
         // Actualizamos los datos del formulario
@@ -46,9 +64,16 @@ export class DetalleSuplementoComponent {
           url: this.suplemento.url
         })
       });
+    } else {
+      // Si no hay id en la url quiere decir que es para agregar un nuevo suplemento
+      // Luego cambiamos el titulo de la vista
+      this.titulo = "Agregar suplemento"
     }
   }
 
+  /**
+   * Método que se ejecuta al enviar el formulario
+   */
   enviaDatos() {
     // Actualizamos los datos del suplemento con el formulario
     this.suplemento.descripcion = this.formEditarSuplemento.controls['descripcion'].value!;
@@ -58,14 +83,20 @@ export class DetalleSuplementoComponent {
     this.suplemento.precio = this.formEditarSuplemento.controls['precio'].value!;
     this.suplemento.url = this.formEditarSuplemento.controls['url'].value!;
 
+    // Si tenemos id llamamos al método editaSuplemento
+    // Si no hay id llamamos al método agregaSuplemento
     if(this.id)
       this.editaSuplemento();
     else
       this.agregaSuplemento();
 
+    // Redirigimos a /admin/suplementos
     this.router.navigateByUrl("/admin/suplementos");
   }
 
+  /**
+   * Método que edita/actualiza un suplemento en la base de datos
+   */
   editaSuplemento() {
     // Actualizamos el suplemento en la base de datos
     this.dbs.updateDocument(this.suplemento, 'suplementos')
@@ -81,6 +112,9 @@ export class DetalleSuplementoComponent {
       }));
   }
 
+  /**
+   * Método que agrega un nuevo suplemento a la base de datos
+   */
   agregaSuplemento(){
     // Agregamos el suplemento a la base de datos
     this.dbs.newDocument(this.suplemento, 'suplementos')

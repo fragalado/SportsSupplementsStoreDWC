@@ -17,7 +17,11 @@ import jsPDF from 'jspdf';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent {
+
+  // Lista donde guardaremos todos los pedidos
   pedidos: Pedido[] = [];
+
+
   dataSource = this.pedidos;
   // Utilizamos un mapeo para personalizar los nombres de las columnas
   columnDisplayMapping: { [key: string]: keyof Pedido } = {
@@ -29,21 +33,36 @@ export class PedidosComponent {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Pedido | null = null;
 
+  // Constructor
   constructor(
     private dbs: DatabaseService
   ) {}
 
+  /**
+   * Método que se inicia al iniciar el componente
+   */
   ngOnInit(){
     // Obtenemos los pedidos del usuario
     this.dbs.queryCollection('pedidos', 'idUsuario', localStorage.getItem("idUsuario")!).subscribe(res => this.dataSource = res);
   }
 
+  /**
+   * Método que crea un PDF y lo abre en una pestaña nueva
+   * @param pedido Pedido que se mostrará en el PDF
+   */
   openPDF(pedido: Pedido) {
     const doc = new jsPDF();
 
     doc.text("Fecha: " +pedido.fecha, 10, 10);
-    doc.text("Productos: " + pedido.productos, 10, 20);
-    doc.text("Precio total: " + pedido.precioTotal + "€", 10, 30);
+
+    doc.text("Productos:", 10, 20);
+    let i = 30;
+    pedido.productos.split(',').forEach(producto => {
+      doc.text(producto.trim(), 10, i);
+      i += 10;
+    });
+
+    doc.text("Precio total: " + pedido.precioTotal + "€", 10, i);
 
     // Obtener los datos del documento como un objeto Blob
     const blobData = doc.output('blob');

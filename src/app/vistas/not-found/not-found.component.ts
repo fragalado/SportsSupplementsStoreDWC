@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class NotFoundComponent {
 
+  // Constructor
+  constructor(
+    private router: Router
+  ) {}
+
+  /**
+   * Método para volver al home
+   */
+  volverPagina(){
+    this.router.navigateByUrl('/SupplementsStore/home');
+  }
 }

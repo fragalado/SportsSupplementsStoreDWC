@@ -62,10 +62,10 @@ export class DetalleUsuarioComponent {
   }
 
   /**
-   * Método que se ejecuta al enviar el formulario y edita un usuario de la base de datos
+   * Método que se ejecuta al enviar el formulario y editar un usuario de la base de datos
    */
   editaUsuario() {
-    // Actualizamos los datos del usuario con el formulari
+    // Actualizamos los datos del usuario con el formulario
     this.usuario.email = this.formEditarUsuario.controls['email'].value!;
     this.usuario.nombre = this.formEditarUsuario.controls['nombre'].value!;
     this.usuario.telefono = this.formEditarUsuario.controls['telefono'].value!;

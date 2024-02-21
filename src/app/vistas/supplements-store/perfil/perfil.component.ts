@@ -8,10 +8,12 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class PerfilComponent {
 
-  constructor(private authService: AuthService) {
-    
-  }
+  // Constructor
+  constructor(private authService: AuthService) {}
 
+  /**
+   * Método que realiza el cierre de sesión
+   */
   cerrarSesion(){
     this.authService.logOut();
   }

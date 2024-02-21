@@ -10,16 +10,21 @@ import Swal from 'sweetalert2';
 })
 export class ListaSuplementosComponent {
 
+  // Lista de tipos Suplementos donde guardaremos todos los suplementos de la base de datos
   suplementos: Suplemento[] = [];
-  constructor(private dbs: DatabaseService) {
 
-  }
+  // Constructor
+  constructor(private dbs: DatabaseService) {}
 
   ngOnInit() {
     // Obtenemos todos los suplementos de la base de datos
     this.dbs.getCollection("suplementos").subscribe(res => this.suplementos = res);
   }
 
+  /**
+   * Método que elimina un suplemento de la base de datos
+   * @param suplemento Objeto suplemento a borrar
+   */
   eliminarSuplemento(suplemento: Suplemento) {
     this.dbs.deleteDocument(suplemento.id!, 'suplementos')
       .then(() => Swal.fire({

@@ -6,8 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Servicio que contiene los métodos para interactuar con la base de datos
+ */
 export class DatabaseService {
 
+  // Constructor que inyecta el servicio de Firestore
   constructor(private fs: Firestore) { }
 
   /**

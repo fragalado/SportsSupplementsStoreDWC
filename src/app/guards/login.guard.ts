@@ -2,7 +2,10 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 
-export const loginGuard: CanActivateFn = (route, state) => {
+/**
+ * 
+ */
+export const loginGuard: CanActivateFn = () => {
   // Inyectamos el servicio para usar sus métodos de autentificacion
   const authService = inject(AuthService);
 

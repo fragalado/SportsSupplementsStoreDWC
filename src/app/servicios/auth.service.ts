@@ -9,10 +9,18 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Servicio para manejar la autentificación del usuario
+ */
 export class AuthService {
 
+  // Variable donde almacenaremos la información del usuario autentificado
   userData: any;
+
+  // Lista de todos los usuarios de la base de datos
   listaUsuarios?: Usuario[];
+
+  // Constructor que inyecta los servicios necesarios para la autentificación
   constructor(
     private firebaseAuthenticationService: AngularFireAuth, 
     private router: Router, 
@@ -34,7 +42,7 @@ export class AuthService {
   }
 
   /**
-   * Método que hace el inicio de sesión de un usuario
+   * Método que realiza el inicio de sesión de un usuario
    * @param email Email introducido por el usuario
    * @param password Contraseña introducida por el usuario
    */
@@ -44,12 +52,14 @@ export class AuthService {
                   // Buscamos el usuario en la lista de usuarios
                   const usuario = this.listaUsuarios?.find(usuario => usuario.email == email);
                   if(usuario?.id_acceso == 2){
-                    // Creamos un nuevo valor en localStorage
+                    // Creamos un nuevo valor en localStorage para indicar que el usuario es Admin
                     localStorage.setItem('userID', '2');
                   }
 
+                  // Guardamos el id del usuario en el localStorage
                   localStorage.setItem('idUsuario', usuario?.id!);
 
+                  // Almacenamos la información del usuario autentificado
                   this.userData = userCredential.user;
                   this.observeUserState();
                 })
@@ -63,9 +73,8 @@ export class AuthService {
   }
 
   /**
-   * Método que hace el registro de sesión de un usuario
-   * @param email Email introducido por el usuario
-   * @param password Contraseña introducida por el usuario
+   * Método que realiza el registro de sesión de un usuario
+   * @param objeto Objeto Usuario con la información del nuevo usuario
    * @returns Devuelve una promesa
    */
   signUpWithEmailAndPassword(objeto: Usuario){
@@ -74,7 +83,7 @@ export class AuthService {
                   // Guardamos el usuario en la base de datos
                   this.dbs.newDocument(objeto, 'usuarios');
                   
-                  // Guardamos el usuario en userData
+                  // Almacenamos la información del usuario autentificado
                   this.userData = userCredential.user;
                   this.observeUserState();
                 })
@@ -109,10 +118,7 @@ export class AuthService {
    */
   get isAdmin(): boolean {
     const id_acceso = localStorage.getItem('userID');
-    if(id_acceso == null)
-      return false;
-    else
-      return true;
+    return id_acceso !== null; // Devuelve true si existe un valor en userID
   }
 
   /**
@@ -122,9 +128,11 @@ export class AuthService {
   logOut(){
     return this.firebaseAuthenticationService.signOut()
                 .then(() => {
+                  // Limpiamos el localStorage
                   localStorage.removeItem('user');
                   localStorage.removeItem('userID');
                   localStorage.removeItem('idUsuario');
+                  // Redirigimos a la pagina de login
                   this.router.navigateByUrl('/login');
                 });
   }

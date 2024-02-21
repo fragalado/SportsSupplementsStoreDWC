@@ -4,25 +4,25 @@ import { CommonModule } from '@angular/common';
 import { SupplementsStoreRoutingModule } from './supplements-store-routing.module';
 import { SupplementsStoreComponent } from './supplements-store.component';
 import { NavbarComponent } from '../core/navbar/navbar.component';
-import { ListaSuplementosComponent } from './suplementos/lista-suplementos/lista-suplementos.component';
-import { DetalleSuplementoComponent } from './suplementos/detalle-suplemento/detalle-suplemento.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HomeComponent } from './home/home.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { MaterialModule } from '../core/material/material.module';
+import { ListadoSuplementosComponent } from './suplementos/listado-suplementos/listado-suplementos.component';
+import { VistaSuplementoComponent } from './suplementos/vista-suplemento/vista-suplemento.component';
 
 
 @NgModule({
   declarations: [
     SupplementsStoreComponent,
     NavbarComponent,
-    ListaSuplementosComponent,
-    DetalleSuplementoComponent,
     PerfilComponent,
     HomeComponent,
     CarritoComponent,
-    PedidosComponent
+    PedidosComponent,
+    ListadoSuplementosComponent,
+    VistaSuplementoComponent
   ],
   imports: [
     CommonModule,

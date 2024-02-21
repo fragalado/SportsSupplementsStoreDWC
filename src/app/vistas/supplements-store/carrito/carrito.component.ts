@@ -12,17 +12,26 @@ import Swal from 'sweetalert2';
 })
 export class CarritoComponent {
 
+  // Lista de objetos Carrito donde guardaremos los carritos del usuario
   carritos: Carrito[] = [];
+  // Lista de objetos Suplemento donde guardaremos todos los suplemetnos de la base de datos
   suplementos?: Suplemento[];
+  // Lista de tipo CarritoSuplemento donde guardaremos el carrito con su respectivo suplemento
   carritoSuplemento: CarritoSuplemento[] = [];
+
+  // Constructor
   constructor(
     private dbs: DatabaseService
   ) {}
 
+  /**
+   * Método que se inicia al iniciar el componente
+   */
   ngOnInit(){
     // Obtenemos el usuario por el email
     const email = JSON.parse(localStorage.getItem('user')!).email;
     this.dbs.queryCollection('usuarios', 'email', email).subscribe((res) => {
+      // Guardamos el usuario
       const usuarios = res[0];
 
       // Obtenemos todos los carritos del usuario
@@ -32,6 +41,7 @@ export class CarritoComponent {
           
           // Ahora obtenemos todos los suplementos
           this.dbs.getCollection('suplementos').subscribe((res3) => {
+            // Guardamos los suplementos
             this.suplementos = res3;
 
             // Limpiamos la lista carritoSuplemento
@@ -42,11 +52,15 @@ export class CarritoComponent {
 
             // Recorremos la lista carritos
             this.carritos.forEach(carrito => {
+              // Obtenemos el suplemento del carrito
               const suplemento = this.suplementos?.find(x => x.id == carrito.idSuplemento)!;
+
+              // Construimos un objeto CarritoSuplemento
               const carritoSuplementoObjeto: CarritoSuplemento = {
                 carrito: carrito,
                 suplemento: suplemento
               }
+              // Guardamos el objeto creado en la lista
               this.carritoSuplemento?.push(carritoSuplementoObjeto);
             })
           });

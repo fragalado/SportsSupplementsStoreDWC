@@ -1,26 +1,28 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Carrito } from 'src/app/modelos/carrito';
 import { Suplemento } from 'src/app/modelos/suplemento';
 import { DatabaseService } from 'src/app/servicios/database.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-suplementos',
-  templateUrl: './lista-suplementos.component.html',
-  styleUrls: ['./lista-suplementos.component.css']
+  selector: 'app-listado-suplementos',
+  templateUrl: './listado-suplementos.component.html',
+  styleUrls: ['./listado-suplementos.component.css']
 })
-export class ListaSuplementosComponent {
-
+export class ListadoSuplementosComponent {
+  // Lista donde guardaremos todos los suplementos
   todosSuplementos?: Suplemento[];
+  // Lista donde guardaremos los suplementos que se van a mostrar por la vista
   suplementos?: Suplemento[];
-  tipo?: string;
+  
+  // Constructor
   constructor(
     private dbs: DatabaseService,
-    private route: ActivatedRoute,
-    private router: Router
   ) { }
 
+  /**
+   * Método que se inicia al iniciar el componente
+   */
   ngOnInit() {
     // Obtenemos todos los suplementos
     this.dbs.getCollection('suplementos').subscribe(res => {
@@ -30,6 +32,10 @@ export class ListaSuplementosComponent {
     });
   }
 
+  /**
+   * Método para filtrar la lista suplementos por tipo
+   * @param tipo Tipo del suplemento (1:Proteína; 2:Creatina; 3:Todo)
+   */
   filtraPor(tipo: number) {
     console.log("Ha entrado en filtraPor");
     if (tipo == 1)
@@ -43,10 +49,16 @@ export class ListaSuplementosComponent {
 
   }
 
+  /**
+   * Método que agrega al carrito un suplemento
+   * @param object Suplemento a agregar al carrito
+   */
   agregarAlCarrito(object: any) {
 
+    // Obtenemos el id del usuario
     const idUsuario = localStorage.getItem('idUsuario')!;
 
+    // Creamos un objeto Carrito
     const carrito: Carrito = {
       idUsuario: idUsuario,
       idSuplemento: object.id,

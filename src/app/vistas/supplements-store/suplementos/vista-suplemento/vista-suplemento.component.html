@@ -6,7 +6,7 @@
                 <img src="{{suplemento.url}}" class="img-fluid imagenSuplemento" alt="{{suplemento.nombre}}">
                 <h2 class="nombreSuplemento">{{suplemento.nombre}}</h2>
                 <p class="descSuplemento">{{suplemento.descripcion}}</p>
-                <a class="btn btn-primary botonVolver" routerLink="/home/home">Volver</a>
+                <button class="btn btn-primary" (click)="agregarAlCarrito()">Añadir al carrito</button>
             </div>
         </div>
     </div>
